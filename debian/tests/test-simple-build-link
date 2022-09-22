@@ -1,0 +1,44 @@
+#!/bin/sh
+
+set -e
+at_exit() {
+    set +x
+    echo "info: test exiting, removing $WORKDIR"
+    rm -rf $WORKDIR
+}
+WORKDIR=$(mktemp -d)
+trap at_exit INT TERM EXIT
+set -x
+
+cd $WORKDIR
+
+if type valgrind >/dev/null 2>&1 ; then
+    VALGRIND=valgrind
+fi
+
+# This is just a simple code example to compile to verify the headers
+# exist, are includable and the library is linkable.  It should be
+# extended to really use the library to test a bit more of the
+# package.
+cat <<EOF > example.c
+#include <string.h>
+#include <stdio.h>
+#include <theora/theoradec.h>
+#include <vorbis/codec.h>
+int main(int argc, char *argv[])
+{
+  static th_info ti;
+
+  /* quiet down compiler about unused arguments */
+  if (1 < argc)
+      return (strlen(argv[1]) != 0);
+  th_info_init(&ti);    
+
+  printf("info: program ran as it should\n");
+  return (0);
+}
+EOF
+
+gcc -o test -Wall -Wextra example.c -ltheoradec
+
+${VALGRIND} ./test

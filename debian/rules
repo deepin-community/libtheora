@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+CONFIG_SHELL = /bin/sh
+export CONFIG_SHELL
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ --with autoreconf
+
+# Enable Telemetry debugging information (LP: #627854), see
+# <URL: https://people.xiph.org/~xiphmont/demo/theora/demo2.html >
+override_dh_auto_configure:
+	dh_auto_configure -- --enable-telemetry
+
+override_dh_strip:
+	# obsolete after buster
+	dh_strip --dbgsym-migration='libtheora-dbg (<< 1.1.1+dfsg.1-15~)'
+
+override_dh_install-arch:
+	dh_install
+	for i in debian/libtheora-bin/usr/bin/*; do \
+		mv $$i debian/libtheora-bin/usr/bin/theora_`basename $$i`; \
+	done
+
+override_dh_installdocs:
+	dh_installdocs README AUTHORS
+
+override_dh_autoreconf:
+	dh_autoreconf autoreconf -- -i -f -I m4

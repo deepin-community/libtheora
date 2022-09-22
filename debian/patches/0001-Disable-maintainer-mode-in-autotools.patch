@@ -1,0 +1,23 @@
+From: Risko Gergely <risko@debian.org>
+Date: Mon, 21 Mar 2005 19:22:55 +0100
+Subject: Disable maintainer mode in autotools
+
+Bug-Debian: https://bugs.debian.org/300422
+
+Disable enable-maintainer-mode for debian packages. As one of the side effects,
+there is no need to pass the --prefix option to avoid installing things into
+/usr/local .
+---
+ autogen.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/autogen.sh b/autogen.sh
+index bbca69d..c275c27 100755
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -126,4 +126,4 @@ echo "  autoconf"
+ autoconf || exit 1
+ 
+ cd $olddir
+-$srcdir/configure --enable-maintainer-mode "$@" && echo
++#$srcdir/configure --enable-maintainer-mode "$@" && echo

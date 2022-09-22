@@ -1,0 +1,11 @@
+Document: libtheora
+Author: The Xiph.org Foundation
+Section: Sound
+Title: The Theora library technical reference
+
+Format: HTML
+Index: /usr/share/doc/libtheora-dev/html/index.html
+Files: /usr/share/doc/libtheora-dev/html/*
+
+Format: PDF
+Files: /usr/share/doc/libtheora-dev/Theora.pdf.gz

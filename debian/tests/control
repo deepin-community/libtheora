@@ -1,0 +1,3 @@
+Tests: test-simple-build-link test-binaries
+Depends: @, debconf, build-essential, libvorbis-dev, valgrind
+Restrictions: allow-stderr

@@ -1,0 +1,6 @@
+0001-Disable-maintainer-mode-in-autotools.patch
+0002-Remove-non-DFSG-commpliant-RFCs.patch
+0003-Build-on-hurd-i386-and-kfreebsd.patch
+0004-player-example-needs-lm-for-rint.patch
+0005-latex.patch
+0006-libpng16.patch

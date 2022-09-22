@@ -1,0 +1,24 @@
+From: John Ferlito <johnf@inodes.org>
+Date: Sat, 12 Dec 2009 11:17:56 +1100
+Subject: Remove non-DFSG commpliant RFCs
+
+Bug-Debian: https://bugs.debian.org/554457
+---
+ doc/Makefile.am | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index 30eaad8..00233e5 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -4,9 +4,7 @@ SUBDIRS = spec
+ 
+ docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
+ 
+-static_docs = vp3-format.txt color.html \
+-	draft-ietf-avt-rtp-theora-00.xml \
+-	draft-ietf-avt-rtp-theora-00.txt
++static_docs = vp3-format.txt color.html
+ 
+ doc_DATA = $(static_docs) doxygen-build.stamp
+ 

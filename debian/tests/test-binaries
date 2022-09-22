@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Depend on debconf to get a simple png file
+
+set -e
+set -x
+
+at_exit() {
+    set +x
+    echo "info: test exiting, removing $WORKDIR"
+    rm -rf $WORKDIR
+}
+WORKDIR=$(mktemp -d)
+trap at_exit INT TERM EXIT
+set -x
+
+cd $WORKDIR
+
+if type valgrind >/dev/null 2>&1 ; then
+    VALGRIND=valgrind
+fi
+
+$VALGRIND theora_png2theora -o test.ogv /usr/share/pixmaps/debian-logo.png
+
+$VALGRIND theora_dump_video test.ogv > test-video.dump
+
+# FIXME figure out how to test these too:
+# theora_encoder_example
+# theora_player_example
