@@ -1,3 +1,9 @@
+libtheora (1.2.0+dfsg-6deepin1) unstable; urgency=medium
+
+  * feat: change libtheora1 -> libtheora0
+
+ -- zengwei <zengwei1@uniontech.com>  Thu, 30 Oct 2025 15:30:40 +0800
+
 libtheora (1.2.0+dfsg-6) unstable; urgency=medium
 
   * Team upload
