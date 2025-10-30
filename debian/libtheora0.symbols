@@ -1,4 +1,4 @@
-libtheora.so.1 libtheora1 #MINVER#
+libtheora.so.1 libtheora0 #MINVER#
 * Build-Depends-Package: libtheora-dev
  libtheora.so.1.0@libtheora.so.1.0 1.2
  theora_clear@libtheora.so.1.0 1.2
