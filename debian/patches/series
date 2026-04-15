@@ -4,3 +4,4 @@
 0004-player-example-needs-lm-for-rint.patch
 0005-latex.patch
 0006-libpng16.patch
+cve_2026_5673.patch

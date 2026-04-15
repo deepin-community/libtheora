@@ -1,0 +1,59 @@
+Description: Fix heap-based out-of-bounds read in AVI parser
+ The avi_parse_input_file function did not properly validate that the
+ header data contained enough bytes before reading chunk sizes and
+ contents. A specially crafted AVI file with truncated header sub-chunks
+ could cause out-of-bounds reads, potentially leading to denial of
+ service or information disclosure.
+ .
+ This fix adds bounds checking before reading chunk data to ensure
+ we don't read beyond the allocated header buffer.
+Author: deepin-ci-robot <packages@deepin.org>
+Origin: vendor
+Bug: https://github.com/xiph/theora/issues/24
+Bug-Debian: https://bugs.debian.org/1133000
+Forwarded: https://github.com/xiph/theora/issues/24
+Last-Update: 2026-04-15
+
+--- a/win32/experimental/transcoder/avi2vp3/avilib.c
++++ b/win32/experimental/transcoder/avi2vp3/avilib.c
+@@ -1201,6 +1201,12 @@ int avi_parse_input_file(avi_t *AVI, int
+ 
+    for(i=0;i<hdrl_len;)
+    {
++      /* Check that we have at least 8 bytes for tag + size */
++      if (i + 8 > hdrl_len)
++      {
++         break;
++      }
++
+       /* List tags are completly ignored */
+ 
+       if(strncasecmp((char *) hdrl_data+i, "LIST",4)==0) { i+= 12; continue; }
+@@ -1216,6 +1222,13 @@ int avi_parse_input_file(avi_t *AVI, int
+ 
+       if(strncasecmp((char *)hdrl_data+i,"strh",4)==0)
+       {
++         /* strh chunk needs at least 56 bytes after the header
++          * (4 bytes type + 4 bytes handler + 4 bytes flags + 4 bytes priority +
++          *  4 bytes initial_frames + 4 bytes scale + 4 bytes rate + 4 bytes start +
++          *  4 bytes length + 4 bytes suggested_buffer_size + 4 bytes quality +
++          *  4 bytes sample_size) */
++         if (i + 8 + 56 > hdrl_len) break;
++
+          i += 8;
+          if(strncasecmp((char *)hdrl_data+i,"vids",4) == 0 && !vids_strh_seen)
+          {
+@@ -1254,6 +1267,13 @@ int avi_parse_input_file(avi_t *AVI, int
+       }
+       else if(strncasecmp((char *) hdrl_data+i,"strf",4)==0)
+       {
++         /* strf chunk needs at least 16 bytes for video format or
++          * 18 bytes for audio format after the header */
++         if (i + 8 + 18 > hdrl_len)
++         {
++            break;
++         }
++
+          i += 8;
+          if(lasttag == 1)
+          {

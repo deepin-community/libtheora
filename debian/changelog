@@ -1,3 +1,9 @@
+libtheora (1.1.1+dfsg.1-15-deepin1) unstable; urgency=medium
+
+  * Fix CVE-2026-5673: heap-based out-of-bounds read in AVI parser
+
+ -- deepin-ci-robot <packages@deepin.org>  Wed, 15 Apr 2026 12:24:58 +0800
+
 libtheora (1.1.1+dfsg.1-15) unstable; urgency=medium
 
   * Team upload
