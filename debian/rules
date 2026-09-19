@@ -1,29 +1,31 @@
 #!/usr/bin/make -f
 
-CONFIG_SHELL = /bin/sh
-export CONFIG_SHELL
+include /usr/share/dpkg/architecture.mk
+
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-%:
-	dh $@ --with autoreconf
+# Ensure texlive respects SOURCE_DATE_EPOCH
+export FORCE_SOURCE_DATE=1
 
 # Enable Telemetry debugging information (LP: #627854), see
 # <URL: https://people.xiph.org/~xiphmont/demo/theora/demo2.html >
+CONFIGURE_FLAGS = --enable-telemetry
+ifneq (,$(filter $(DEB_HOST_ARCH), armel))
+CONFIGURE_FLAGS += --disable-asm
+endif
+
+%:
+	dh $@
+
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-telemetry
+	dh_auto_configure -- $(CONFIGURE_FLAGS)
 
-override_dh_strip:
-	# obsolete after buster
-	dh_strip --dbgsym-migration='libtheora-dbg (<< 1.1.1+dfsg.1-15~)'
-
-override_dh_install-arch:
-	dh_install
+ifeq (,$(filter pkg.libtheora.nosdl,$(DEB_BUILD_PROFILES)))
+execute_after_dh_install-arch:
 	for i in debian/libtheora-bin/usr/bin/*; do \
 		mv $$i debian/libtheora-bin/usr/bin/theora_`basename $$i`; \
 	done
-
-override_dh_installdocs:
-	dh_installdocs README AUTHORS
+endif
 
 override_dh_autoreconf:
 	dh_autoreconf autoreconf -- -i -f -I m4

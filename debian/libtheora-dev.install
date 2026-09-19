@@ -1,5 +1,5 @@
-debian/tmp/usr/include/theora/theora.h
 debian/tmp/usr/include/theora/codec.h
+debian/tmp/usr/include/theora/theora.h
 debian/tmp/usr/include/theora/theoradec.h
 debian/tmp/usr/include/theora/theoraenc.h
 usr/lib/*/libtheora.a

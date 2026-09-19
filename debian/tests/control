@@ -1,3 +1,8 @@
 Tests: test-simple-build-link test-binaries
-Depends: @, debconf, build-essential, libvorbis-dev, valgrind
+Depends:
+ build-essential,
+ debconf,
+ libvorbis-dev,
+ valgrind  [!armel !riscv64],
+ @,
 Restrictions: allow-stderr

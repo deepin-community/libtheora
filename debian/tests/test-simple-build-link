@@ -10,6 +10,12 @@ WORKDIR=$(mktemp -d)
 trap at_exit INT TERM EXIT
 set -x
 
+if [ -n "${DEB_HOST_GNU_TYPE:-}" ]; then
+    CROSS_COMPILE="$DEB_HOST_GNU_TYPE-"
+else
+    CROSS_COMPILE=
+fi
+
 cd $WORKDIR
 
 if type valgrind >/dev/null 2>&1 ; then
@@ -39,6 +45,6 @@ int main(int argc, char *argv[])
 }
 EOF
 
-gcc -o test -Wall -Wextra example.c -ltheoradec
+${CROSS_COMPILE}gcc -o test -Wall -Wextra example.c -ltheoradec
 
 ${VALGRIND} ./test

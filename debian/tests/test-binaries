@@ -16,7 +16,10 @@ set -x
 
 cd $WORKDIR
 
-if type valgrind >/dev/null 2>&1 ; then
+# 2025-01-16: valgrind detects a SIGSEGV wheras neither gdb nor a normal run cause one. Disabling
+# all hardening fixes the spurious valgrind error. So do not test with valgrind on armhf - hardning
+# is more important.
+if [ "$(dpkg --print-architecture)" != "armhf" ] && type valgrind >/dev/null 2>&1 ; then
     VALGRIND=valgrind
 fi
 

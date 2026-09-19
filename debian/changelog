@@ -1,3 +1,181 @@
+libtheora (1.2.0+dfsg-6) unstable; urgency=medium
+
+  * Team upload
+  * debian/control: Drop left-over Depends+Breaks+Replaces (Closes: #1113790)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sat, 06 Sep 2025 15:52:30 +0200
+
+libtheora (1.2.0+dfsg-5) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Dropped old FSF address from d/copyright.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Sat, 30 Aug 2025 21:20:01 +0200
+
+libtheora (1.2.0+dfsg-4) experimental; urgency=medium
+
+  * Team upload.
+
+  * Added 0002-arm-missing-files.patch for files needed on armhf.
+  * Reintroduce --disable-asm for armel, as 1.2.0 assembly do not
+    work there.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Wed, 02 Apr 2025 18:18:20 +0200
+
+libtheora (1.2.0+dfsg-3) experimental; urgency=medium
+
+  * Team upload.
+
+  * Stop disabling use of asm on arm as it should be working in 1.2.0.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Wed, 02 Apr 2025 16:23:29 +0200
+
+libtheora (1.2.0+dfsg-2) experimental; urgency=medium
+
+  * Team upload.
+
+  * Source only upload after NEW processing.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Sat, 29 Mar 2025 21:08:16 +0100
+
+libtheora (1.2.0+dfsg-1) experimental; urgency=medium
+
+  * Team upload.
+
+  * New upstream version 1.2.0.
+   - SONAME change for libtheora0->libtheora1,
+     libtheoradec1->libtheoradec2 and libtheoraenc1->libtheoraenc2 due
+     to changes in constness for string arguments of some public
+     method arguments.
+   - README now i markdown format.
+   - Include encoding wrapper script (Closes: #516343).
+   - Fixes performance issue when enabling telemetry (Closes: #972943).
+   - Dropped 0002-player-example-needs-lm-for-rint.patch,
+     0003-latex.patch, 0004-libpng16.patch,
+     0005-drop-inter-library-dep.patch and 0006-CVE-2024-56431.patch
+     now included upstream.
+  * Dropped autopkgtest dependency valgrind on armel and riscv64.
+  * Updated Standards-Version from 4.7.0 to 4.7.2.
+
+ -- Petter Reinholdtsen <pere@debian.org>  Sat, 29 Mar 2025 10:15:44 +0100
+
+libtheora (1.2.0~alpha1+dfsg-6) unstable; urgency=medium
+
+  * Team upload.
+
+  * Added 0005-drop-inter-library-dep.patch from upstream to avoid
+    unwanted library dependency (Closes: #923940).
+  * Added 0006-CVE-2024-56431.patch fixing crash on bad input
+    (Closes: #1091633).
+
+ -- Petter Reinholdtsen <pere@debian.org>  Sun, 16 Mar 2025 04:59:38 +0100
+
+libtheora (1.2.0~alpha1+dfsg-5) unstable; urgency=medium
+
+  * Team upload
+  * debian/clean: Clean documentation (Closes: #1048962)
+  * debian/tests: Skip valgrind test on armhf due to spurious errors.
+    valgrind fails with a hardened build of libtheora but it is impossible to
+    reproduce the issue with other tools.
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Thu, 16 Jan 2025 23:39:37 +0100
+
+libtheora (1.2.0~alpha1+dfsg-4) unstable; urgency=medium
+
+  * Team upload
+  * debian/rules: Also disable NEON optimizations on armhf to fix runtime
+    crashes
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Wed, 15 Jan 2025 19:15:30 +0100
+
+libtheora (1.2.0~alpha1+dfsg-3) unstable; urgency=medium
+
+  * Team upload
+  * Disable NEON optimizations on armel
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 14 Jan 2025 23:17:08 +0100
+
+libtheora (1.2.0~alpha1+dfsg-2) unstable; urgency=medium
+
+  * Team upload
+  * Upload to unstable
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Tue, 14 Jan 2025 08:26:58 +0100
+
+libtheora (1.2.0~alpha1+dfsg-1) experimental; urgency=medium
+
+  * Team upload
+  * New upstream version 1.2.0~alpha1+dfsg
+  * debin/: Split off libraries with differing SOVERSION
+  * debian/patches: Update patches for 1.2.0~alpha1
+  * debian/watch: Specify repacksuffix
+  * debian/copyright: Extend with missing copyright information
+  * debian/libtheore-doc.docs: Update for changed paths
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 29 Dec 2024 17:49:20 +0100
+
+libtheora (1.1.1+dfsg.1-17) unstable; urgency=medium
+
+  * Team upload
+  * Acknowledge NMU (Closes: #1024649)
+  * debian/control:
+    - Bump Standards-Version
+    - Set RRR: no
+    - Use pkgconf
+  * debian/: Break build cycle with libsdl1.2 (Closes: #1077536)
+  * debian/patches: Fix underlinking of libtheoraenc (Closes: #923940)
+
+ -- Sebastian Ramacher <sramacher@debian.org>  Sun, 11 Aug 2024 13:29:24 +0200
+
+libtheora (1.1.1+dfsg.1-16.1) unstable; urgency=medium
+
+  * Non-maintainer upload by the Reproducible Builds team.
+  * debian/libtheora-doc.examples: do not install example Makefile as it leaks
+    the build path. Closes: #990843 - thanks to Vagrant Cascadian for the
+    patch.
+  * debian/rules: ensure texlive respects SOURCE_DATE_EPOCH, thanks again to
+    Vagrant for the patch. Closes: #990844
+
+ -- Holger Levsen <holger@debian.org>  Thu, 06 Oct 2022 19:18:29 +0200
+
+libtheora (1.1.1+dfsg.1-16) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Florian Schlichting ]
+  * Drop autoreconf from dh call, obsolete at this compat level
+
+  [ Ondřej Nový ]
+  * Use debhelper-compat instead of debian/compat
+
+  [ Debian Janitor ]
+  * Apply multi-arch hints. + libtheora-doc: Add Multi-Arch: foreign.
+  * Remove constraints unnecessary since buster
+  * Bump debhelper from old 12 to 13.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Drop transition for old debug package migration.
+
+  [ Dennis Braun ]
+  * Update rules, no need to override dh_strip anymore
+
+  [ Boyuan Yang ]
+  * debian/control: Unify comma in build-dep list.
+  * debian/: Apply wrap-and-sort -abst.
+  * Drop useless build-deps: dpkg, automake, libtool, devscripts,
+    texlive-fonts-recommended. (Closes: #981655)
+  * debian/control: Bump Standards-Version to 4.6.1.
+  * Apply patch from Ubuntu:
+
+  [ Steve Langasek ]
+  * Make autopkgtests cross-test-friendly.
+  * Better autopkgtest support:
+    - we need the target valgrind on cross-testing, not the testbed
+      valgrind.
+    - fix the compile test to use the right paths.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 01 Jun 2022 09:41:32 -0400
+
 libtheora (1.1.1+dfsg.1-15) unstable; urgency=medium
 
   * Team upload
